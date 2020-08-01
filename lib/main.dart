@@ -1,557 +1,335 @@
 import 'package:flutter/material.dart';
-//mport 'package:charts_flutter/flutter.dart' as charts;
-//import 'taxcalcscreen2.dart';
-//import '../widgets/graph.dart';
-//import '../widgets/data.dart';
+import 'package:flutter/rendering.dart';
+import 'package:login_page/forget_password.dart';
+import 'signup.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'forget_password.dart';
+import 'package:email_validator/email_validator.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
-  runApp(NetWorth());
+  runApp(MyApp());
+  var email = "fredrik@gmail.com";
+
+  assert(EmailValidator.validate(email));
 }
 
-class NetWorth extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new Calc(),
+      routes: <String, WidgetBuilder>{
+        '/signup':(BuildContext context)=>new SignupPage(),
+        '/forgotpassword':(BuildContext context)=> new Forgotpassword(),
+      },
+      home: new MyHomePage(),
     );
   }
 }
 
-class Calc extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   @override
-  _CalcState createState() => _CalcState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _CalcState extends State<Calc> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    //final ht=MediaQuery.of(context).size.height;
-    final wd = MediaQuery.of(context).size.width;
-    return Scaffold(
+    return new Scaffold(
       backgroundColor: Color(0xFFF0F3F3),
       resizeToAvoidBottomPadding: false,
-      body: SafeArea(
-              child: SingleChildScrollView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          //children: <Widget>[
-          child: Container(
-            child: Stack(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+              child: Stack(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(15.0, 95.0, 0.0, 0.0),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF4D426D),
+                  ),
+                ),
+              ),
+              Container(
+                height: 152.0,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  iconSize: 32.0,
+                  color: Color(0xFF555555),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(15.0, 150.0, 0.0, 0.0),
+                child: Text(
+                  'Login to your account',
+                  style: TextStyle(
+                    fontSize: 16.5,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF838383),
+                  ),
+                ),
+              )
+            ],
+          )),
+          SizedBox(height: 40.0),
+          Container(
+            padding: EdgeInsets.only(top: 35.0, left: 25.0, right: 25.0),
+            child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(12.0, 105.0, 0.0, 0.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: wd,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              //width: 200.0,
-                              child: Text(
-                                'Effective',
-                                style: TextStyle(
-                                  fontSize: 38.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF4D426D),
-                                ),
+                  height: 42.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFFFFFFFF),
+                    elevation: 4.5,
+                    child: Padding(
+                      padding:EdgeInsets.all(10.0),
+                      child: TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                Icons.email,
+                color: Color(0xFF838383)),
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                fontSize: 13.0,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF838383),
                               ),
-                            ),
-                            SizedBox(width: 189),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: new Tab(
-                                icon: new Image.asset(
-                                    "assets/icons8-save-100(3).png"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: wd,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              //width: 200.0,
-                              child: Text(
-                                'Capital',
-                                style: TextStyle(
-                                  fontSize: 38.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF4D426D),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 218.0),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: new Tab(
-                                icon: new Image.asset(
-                                    "assets/icons8-forward-arrow-100(1).png"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Total effective Capital :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 25.0,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFF4D426D),
-                            elevation: 4.5,
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Personal Property',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25.0,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Paid Share Capital :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Share Premium (in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Reserve & Surplus(in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        
-                        width: 350.0,
-                        child: Text(
-                          
-                          '(excluding revalution reserves)',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 8.0,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Long Terms Loans(in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Deposits(in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Investments :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25.0,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Investments(in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Accumlated Loses(in Rs.) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        
-                        width: 350.0,
-                        child: Text(
-                          
-                          '(including securities premium)',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 8.0,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      Container(
-                        width: 350.0,
-                        child: Text(
-                          'Prelimnary Expenses(in Rs) :',
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 19.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF555555),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Center(
-                        child: Container(
-                          height: 52.0,
-                          width: 350.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color(0xFFFFFFFF),
-                            elevation: 7.0,
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  //labelText: 'Email',
-                                  labelStyle: TextStyle(
-                                    fontSize: 23.0,
-                                    fontFamily: 'Lato',
-                                    //fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      //SizedBox(height: 50.0),
-                      
-                      
-                      SizedBox(height: 60.0),
-                    ],
+                              )),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 18.0),
+                Container(o
+                  height: 42.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFFFFFFFF),
+                    elevation: 4.0,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(
+                Icons.vpn_key,
+                color: Color(0xFF838383)),
+                            labelText: 'Password',
 
-                    //SizedBox(width: 140.0),
+                            labelStyle: TextStyle(
+                              fontSize: 13.0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF838383),
+                            ),
+                            ),
+                        obscureText: true,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                      alignment: Alignment(1.0, 0.0),
+                      padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                      
+                      
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/forgotpassword');
+                          },
+                                                  child: Text(
+                            'Forgot your Password?',
+                            style: TextStyle(
+                                color: Color(0xFF838383),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10.0,
+                                fontFamily: 'Montserrat',
+                                //decoration: TextDecoration.underline
+                                ),
+                          ),
+                        ),
+                      
+                    ),
+                //SizedBox(height: 18.0),
+                /*Container(
+                  //width: 300.0,
+                  height: 42.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFFFFFFFF),
+                    elevation: 4.0,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            labelStyle: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF838383),
+                            ),
+                            ),
+                        obscureText: true,
+                      ),
+                    ),
+                  ),
+                ),*/
+                SizedBox(height: 55.0),
+                Container(
+                  width:250.0,
+                  height: 40.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    //shadowColor: Colors.greenAccent,
+                    color: Color(0xFF4D426D),
+                    elevation: 7.0,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                          child: Text('Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ))),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 48.0),
+                Text(
+                  '----------------------------------OR----------------------------------',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color(0xFF00C1C1),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  height: 60.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SignInButton(Buttons.Google,mini: true, onPressed: () {}),
+                      SizedBox(width: 20.0),
+                      SignInButton(Buttons.Facebook,mini: true, onPressed: () {}),
+                    ],
+                    
+                  ),
+                ),
+                //SignInButton(Buttons.Facebook,mini: true, onPressed: () {}),
+                /*Container(
+                  height: 40.0,
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          style: BorderStyle.solid,
+                          width: 1.0,
+                        ),
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: ImageIcon(AssetImage('assets/facebook.png')),
+                        ),
+                        SizedBox(width: 10.0),
+                        Center(
+                          child: Text(
+                            'Login with facebook ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),*/
+
+                /*Container(
+                  height: 40.0,
+                  color: Colors.transparent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          style: BorderStyle.solid,
+                          width: 1.0,
+                        ),
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: ImageIcon(AssetImage('assets/google.png')),
+                        ),
+                        SizedBox(width: 10.0),
+                        Center(
+                          child: Text(
+                            'Login with Google ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),*/
+                /* SignInButton(
+  Buttons.Google,
+  mini: true,
+  onPressed: () {},
+),*/
+                SizedBox(height: 50.0),
+                Text(
+                  'Dont have an account?',
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Color(0xFF838383),
+                  ),
+                ),
+                //SizedBox(height: 5.0),
+                Container(
+                  width: 250.0,
+                  height: 40.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFFFFFFFF),
+                    elevation: 4.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/signup');
+                      },
+                      child: Center(
+                          child: Text('Sign Up',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ))),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          //],
-        ),
+        ],
       ),
     );
   }
