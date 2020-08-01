@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(NetWorth());
 }
- 
+
 class NetWorth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
